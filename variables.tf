@@ -1,5 +1,7 @@
 # variables.tf
-
+locals {
+  default_desc = "Managed by Terraform"
+}
 variable "aws_region" {
   description = "The AWS region things are created in"
   default     = "us-west-2"

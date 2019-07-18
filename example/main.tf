@@ -1,5 +1,5 @@
 module "GeekFormApp" {
-  source = "../"
+  source = "github.com/tf-module/fargate-app"
   aws_region = "us-west-2"
   app_name = "GeekFormApp"
   app_image = "nginx"
