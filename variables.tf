@@ -10,6 +10,11 @@ variable "az_count" {
   default     = "2"
 }
 
+variable "app_name" {
+  description = "App Name"
+  default     = "FargateApp"
+}
+
 variable "app_image" {
   description = "Docker image to run in the ECS cluster"
   default     = "bywang/magpie"
@@ -20,19 +25,9 @@ variable "app_port" {
   default     = 80
 }
 
-variable "app_count" {
+variable "app_default_container_count" {
   description = "Number of docker containers to run"
   default     = 1
-}
-
-variable "ecs_autoscale_role" {
-  description = "Role arn for the ecsAutoscaleRole"
-  default     = "arn:aws:iam::309154556741:role/ecsAutoscaleRoles"
-}
-
-variable "ecs_task_execution_role" {
-  description = "Role arn for the ecsTaskExecutionRole"
-  default     = "arn:aws:iam::309154556741:role/ecsTaskExecutionRole"
 }
 
 variable "health_check_path" {

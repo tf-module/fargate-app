@@ -1,17 +1,17 @@
 # logs.tf
 
 # Set up CloudWatch group and log stream and retain logs for 30 days
-resource "aws_cloudwatch_log_group" "cb_log_group" {
-  name              = "/ecs/cb-app"
+resource "aws_cloudwatch_log_group" "fargate_app_log_group" {
+  name              = "/fargate-app/${var.app_name}"
   retention_in_days = 30
 
   tags = {
-    Name = "cb-log-group"
+    Name = "${var.app_name}-log-group"
   }
 }
 
-resource "aws_cloudwatch_log_stream" "cb_log_stream" {
-  name           = "cb-log-stream"
-  log_group_name = aws_cloudwatch_log_group.cb_log_group.name
+resource "aws_cloudwatch_log_stream" "fargate_app_log_stream" {
+  name           = "${var.app_name}-log-stream"
+  log_group_name = aws_cloudwatch_log_group.fargate_app_log_group.name
 }
 
