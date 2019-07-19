@@ -20,7 +20,7 @@ EOF
 
 resource "aws_iam_role_policy" "ecs_task_execution_role_policy" {
   name   = "ecs_execution_role_policy"
-  role   = "${aws_iam_role.ecs_task_execution_role.id}"
+  role   = aws_iam_role.ecs_task_execution_role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -64,7 +64,7 @@ EOF
 
 resource "aws_iam_role_policy" "ecs_autoscale_role_policy" {
   name = "ecs_autoscale_role_policy"
-  role = "${aws_iam_role.ecs_autoscale_role.id}"
+  role = aws_iam_role.ecs_autoscale_role.id
   policy = <<EOF
 {
   "Version": "2012-10-17",

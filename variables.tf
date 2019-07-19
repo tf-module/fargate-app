@@ -27,9 +27,14 @@ variable "app_port" {
   default     = 80
 }
 
-variable "app_default_container_count" {
-  description = "Number of docker containers to run"
+variable "app_min_replica" {
+  description = "Default/Minimum number of docker containers to run"
   default     = 1
+}
+
+variable "app_max_replica" {
+  description = "Max number of docker containers to run"
+  default     = 3
 }
 
 variable "health_check_path" {
