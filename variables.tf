@@ -51,3 +51,6 @@ variable "fargate_memory" {
   default     = "512"
 }
 
+locals {
+  auto_scaling_count = "${var.app_max_replica > 1 ? 1 : 0}"
+}

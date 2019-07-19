@@ -1,16 +1,17 @@
 # auto_scaling.tf
-
 resource "aws_appautoscaling_target" "target" {
+  count              = local.auto_scaling_count
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.main.name}"
   scalable_dimension = "ecs:service:DesiredCount"
-  role_arn           = aws_iam_role.ecs_autoscale_role.arn
+  role_arn           = aws_iam_role.ecs_autoscale_role[count.index].arn
   min_capacity       = var.app_min_replica
   max_capacity       = var.app_max_replica
 }
 
 # Automatically scale capacity up by one
 resource "aws_appautoscaling_policy" "up" {
+  count              = local.auto_scaling_count
   name               = "fargate_app_scale_up"
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.main.name}"
@@ -32,6 +33,7 @@ resource "aws_appautoscaling_policy" "up" {
 
 # Automatically scale capacity down by one
 resource "aws_appautoscaling_policy" "down" {
+  count              = local.auto_scaling_count
   name               = "fargate_app_scale_down"
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.main.name}"
@@ -53,6 +55,7 @@ resource "aws_appautoscaling_policy" "down" {
 
 # CloudWatch alarm that triggers the autoscaling up policy
 resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
+  count               = local.auto_scaling_count
   alarm_name          = "fargate_app_cpu_utilization_high"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "2"
@@ -67,11 +70,12 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_high" {
     ServiceName = aws_ecs_service.main.name
   }
 
-  alarm_actions = [aws_appautoscaling_policy.up.arn]
+  alarm_actions = [aws_appautoscaling_policy.up[count.index].arn]
 }
 
 # CloudWatch alarm that triggers the autoscaling down policy
 resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
+  count               = local.auto_scaling_count
   alarm_name          = "fargate_app_cpu_utilization_low"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "2"
@@ -86,6 +90,6 @@ resource "aws_cloudwatch_metric_alarm" "service_cpu_low" {
     ServiceName = aws_ecs_service.main.name
   }
 
-  alarm_actions = [aws_appautoscaling_policy.down.arn]
+  alarm_actions = [aws_appautoscaling_policy.down[count.index].arn]
 }
 

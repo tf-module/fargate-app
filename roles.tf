@@ -43,8 +43,8 @@ EOF
 }
 
 resource "aws_iam_role" "ecs_autoscale_role" {
-  name = "ecs_autoscale_role"
-
+  count              = local.auto_scaling_count
+  name               = "ecs_autoscale_role"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -63,8 +63,9 @@ EOF
 
 
 resource "aws_iam_role_policy" "ecs_autoscale_role_policy" {
-  name = "ecs_autoscale_role_policy"
-  role = aws_iam_role.ecs_autoscale_role.id
+  count              = local.auto_scaling_count
+  name               = "ecs_autoscale_role_policy"
+  role               = aws_iam_role.ecs_autoscale_role[count.index].id
   policy = <<EOF
 {
   "Version": "2012-10-17",
