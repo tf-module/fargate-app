@@ -6,14 +6,14 @@ module "MainVPC" {
   aws_region = "us-west-2"
 }
 
-module "GeekFormApp" {
+module "MagpieSPA" {
   source = "github.com/tf-module/fargate-app"
   vpc_id = module.MainVPC.vpc_id
   private_subnet_ids = module.MainVPC.private_subnet_ids
   public_subnet_ids = module.MainVPC.public_subnet_ids
   aws_region = "us-west-2"
-  app_name = "GeekFormApp"
-  app_image = "nginx"
+  app_name = "Magpie"
+  app_image = "bywang/magpie"
   app_port = 80
   app_min_replica = 1
   app_max_replica = 3
@@ -22,5 +22,5 @@ module "GeekFormApp" {
   health_check_path = "/"
 }
 output "HomeURL" {
-  value = "${module.GeekFormApp.alb_hostname}"
+  value = "${module.MagpieSPA.alb_hostname}"
 }
