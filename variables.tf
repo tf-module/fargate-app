@@ -7,9 +7,17 @@ variable "aws_region" {
   default     = "us-west-2"
 }
 
-variable "az_count" {
-  description = "Number of AZs to cover in a given region"
-  default     = "2"
+
+variable "vpc_id" {
+  description = "vpc id"
+}
+
+variable "private_subnet_ids" {
+  description = "private subnet ids"
+}
+
+variable "public_subnet_ids" {
+  description = "public subnet ids"
 }
 
 variable "app_name" {
