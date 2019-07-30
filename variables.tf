@@ -20,6 +20,19 @@ variable "public_subnet_ids" {
   description = "public subnet ids"
 }
 
+variable "private_zone_id" {
+  description = "Route53 private zone id"
+}
+
+variable "public_zone_id" {
+  description = "Route53 public zone id"
+}
+
+variable "environment" {
+  description = "APP environment(like sandbox,uat,prod)"
+}
+
+
 variable "app_name" {
   description = "App Name"
   default     = "FargateApp"

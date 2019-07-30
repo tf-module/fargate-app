@@ -1,6 +1,6 @@
 # outputs.tf
 
-output "alb_hostname" {
-  value = aws_alb.main.dns_name
+output "public_dns_name" {
+  value = aws_route53_record.public_dns.name
 }
 
