@@ -27,7 +27,7 @@ resource "aws_alb_target_group" "app" {
 # Redirect all traffic from the ALB to the target group
 resource "aws_alb_listener" "fargate_app" {
   load_balancer_arn = aws_alb.main.id
-  port              = var.app_port
+  port              = 80
   protocol          = "HTTP"
 
   default_action {
